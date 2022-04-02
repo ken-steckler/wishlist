@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Group</title>
-</head>
-<body>
-    <form action="/groups" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="group[name]">
-        </div>
-        <div>
-            <label for="date">Date</label>
-            <input type="text" id="date" name="group[date]">
-        </div>
-        <button>Add Group</button>
-    </form>
-    
-</body>
-</html>
-
-<!-- group[name]: group things under group, if you have multiple groups with square brackets and data is sent via post request to express, everything in req.body will be stored under group. Basically, this syntax groups content together -->
+<% layout('layouts/boilerplate') %>
+<div class="card w-50 m-auto mt-4">
+      <h3 class="m-auto mt-4 mb-1">Happy Birthday! 🎉🥳</h3>
+      <p class="m-auto">Here you can add the name of your group and that special day</p>
+    <div class="card-body">
+        <form action="/groups" method="POST" novalidate class="validated-form mt-3">
+            <div class="mb-3 w-50 m-auto">
+                <label class="form-label" for="name">Group Name</label>
+                <input class="form-control" type="text" id="name" name="group[name]" required>
+            </div>
+            <div class="mb-4 w-50 m-auto">
+                <label class="form-label" for="date">Special Day</label>
+                <input class="form-control" type="text" id="date" name="group[date]" required>
+            </div>
+            <div class="mb-4 w-50 m-auto">
+              <button class="btn btn-primary">Add Group</button>
+              <a href="/groups" class="btn btn-info">Go back</a>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

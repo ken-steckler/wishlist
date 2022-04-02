@@ -1,11 +1,21 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const path = require('path')
+const path = require('path');
+const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const Gift = require('./models/gifts');
-const Group = require('./models/group')
+const Gift = require('./models/gift');
+const Group = require('./models/group');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+const userRoutes = require('./routes/users');
 const PORT = 3000;
+
+const groups = require('./routes/groups');
+const gifts = require('./routes/gifts');
 
 mongoose.connect('mongodb://localhost:27017/localGift', {
     useNewUrlParser: true,
@@ -18,68 +28,48 @@ db.once("open", () => {
     console.log("Database connected")
 })
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
+app.engine('ejs', ejsMate);
+
 // in order to parse the body in a post request
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'))
+const sessionOp = {
+    secret: 'thisthisthis',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionOp));
+app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser()); //this brings a user in a session
+passport.deserializeUser(User.deserializeUser()); //this brings a user out of a session
 
-// All groups
-app.get('/groups', async (req, res) => {
-    const groups = await Group.find({});
-    res.render('groups/index', { groups })
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
+
+app.use('/', userRoutes);
+app.use('/groups', groups);
+app.use('/groups/:id/gifts', gifts);
+
+app.use((req, res) => {
+    res.status(404).send('Page Not Found!')
 })
-
-// Create
-app.get('/groups/new', (req, res) => {
-    res.render('groups/new')
-})
-
-app.post('/groups', async (req, res) => {
-    const group = new Group(req.body.group);
-    await group.save();
-    res.redirect(`groups/${group._id}`)
-})
-
-// Find by Id
-app.get('/groups/:id', async (req, res) => {
-    const group = await Group.findById(req.params.id)
-    res.render('groups/details', { group });
-})
-
-// Editing a wish list of a group
-app.get('/groups/:id/edit', async (req, res) => {
-    const group = await Group.findById(req.params.id)
-    res.render('groups/edit', { group })
-})
-
-app.pout('/groups/:id', async (req, res) => {
-    res.send('It worked!')
-})
-
-
-
-// app.get('/makegift', async (req, res) => {
-//     const gift = new Gift({
-//         title: 'coffee',
-//         price: '$10',
-//         url: 'https://bluebottlecoffee.com/'
-//     })
-//     await gift.save();
-//     res.send(gift)
-// })
-
-
-// app.get('/makegroup', async (req, res) => {
-//     const group = new Group({
-//         name: 'Kens BDAY',
-//         date: '07/03/2022'
-//     })
-//     await group.save();
-//     res.send(group)
-// })
 
 app.listen(PORT, () => {
     console.log(`Serving on PORT ${PORT}`)

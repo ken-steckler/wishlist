@@ -1,19 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
-</head>
-<body>
+<% layout('layouts/boilerplate') %>
+<div class="mb-3">
     <h1><%= group.name %></h1>
-    <h2><%= group.date %></h2>
-    <p>        
-        <a href="/groups/<%= group._id %>/edit">Edit</a>
-    </p>
-    <footer>
-        <a href="/groups">All groups</a>
-    </footer>
-</body>
-</html>
+    <h3>Special Date: <%= group.date %></h3>
+    <li class="list-group-item">Submitted by: <%= group.author.username %></li>
+</div>
+<div class="card w-100 mb-3">
+    <div class="card-header">
+      Wishlist
+    </div>
+    <ul class="list-group list-group-flush">
+        <% for (let gift of group.gifts) { %>
+                <li class="list-group-item">
+                    <h5><%= gift.giftName %></h5>
+                    <h6>Price: $<%= gift.giftPrice%></h6>
+                    <h6><a href="<%gift.giftLink%>">Link</a></h6>
+                    <h6><%=gift.giftLink%></h6>
+                    <form action="/groups/<%=group._id%>/gifts/<%=gift._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete your gift</button>
+                    </form>
+                </li>
+        <% } %>
+    </ul>
+</div>
+
+<% if(group.author.username == user) { %> 
+<form action="/groups/<%=group._id%>/gifts" method="POST" novalidate class="validated-form mb-3">
+    <div class="mb-3">
+        <label class="form-label" for="giftName">Gift</label>
+        <input class="form-control" type="text" id="giftName" name="gift[giftName]" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="giftPrice">Price ($)</label>
+        <input class="form-control" type="text" id="giftPrice" name="gift[giftPrice]" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="giftLink">Link</label>
+        <input class="form-control" type="text" id="giftLink" name="gift[giftLink]" required>
+    </div>
+    <button class="btn btn-primary">Add a gift</button>
+</form>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+        <div class="card-body">
+            <p class="card-text">Edit the name or date of your group</p>
+            <a href="/groups/<%= group._id %>/edit" class="btn btn-primary">Edit Group</a>
+        </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">Delete your group</p>
+                <form action="/groups/<%=group._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %> 
+<footer>
+    <a href="/groups" class="btn btn-primary">All groups</a>
+</footer>

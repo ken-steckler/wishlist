@@ -1,0 +1,21 @@
+<% layout('layouts/boilerplate') %>
+<div class="card w-50 m-auto my-auto">
+    <h3 class="mt-4 m-auto mb-3">Log in to GiftxChange</h3>
+    <div class="m-auto mb-2">No account? <a href="/register">Sign up</a></div>
+    <div class="card-body">
+        <form action="/login" method="POST" class="validated-form" novalidate>
+            <div class="mb-3 w-50 m-auto">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" required>
+            </div>
+            <div class="mb-4 w-50 m-auto">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password" required>
+            </div>
+            <div class="m-auto w-50">
+                <button class="btn btn-success w-100">Login</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editing a Wish List</title>
-</head>
-<body>
-    <form action="/groups/" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="group[name]" value="<%= group.name %>">
-        </div>
-        <div>
-            <label for="date">Date</label>
-            <input type="text" id="date" name="group[date]" value="<%= group.date %>">
-        </div>
-        <button>Update Group</button>
-    </form>
-    <a href="/groups/<%= group._id %>">Back to Groups</a>
+<% layout('layouts/boilerplate') %>
+<form action="/groups/<%=group._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+    <div>
+        <label class="form-label" for="name">Group Name</label>
+        <input class="form-control" type="text" id="name" name="group[name]" value="<%= group.name %>" required>
+    </div>
+    <div>
+        <label class="form-label" for="date">Special Date</label>
+        <input class="form-control" type="text" id="date" name="group[date]" value="<%= group.date %>" required>
+    </div>
+    <br>
+    <button class="btn btn-primary">Update Group</button>
+</form>
 
-</body>
-</html>
+
+<a href="/groups">All Groups</a>
+<br>
+<a href="/groups/<%= group._id %>">Group Details</a>
 
 <!-- group[name]: group things under group, if you have multiple groups with square brackets and data is sent via post request to express, everything in req.body will be stored under group. Basically, this syntax groups content together -->
