@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Group = require("../models/group");
+const Gift = require("../models/gift");
 const passport = require("passport");
+const { isLoggedIn, isAuthor } = require("../middleware");
 
 router.get("/register", (req, res) => {
   res.render("users/register");
@@ -50,6 +53,18 @@ router.get("/logout", (req, res) => {
   req.logout();
   req.flash("success", "Logged out!");
   res.redirect("/groups");
+});
+
+// Adds gift to associated account when user selects gift
+router.post("/groups/:id", isLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(req.params.id);
+  const gift = await Gift.findById(req.params.id);
+  user.gifts.push(gift);
+  await gift.save();
+  await user.save();
+  req.flash("success", "Gift selected!");
+  res.redirect(`/groups/${group._id}`);
 });
 
 module.exports = router;

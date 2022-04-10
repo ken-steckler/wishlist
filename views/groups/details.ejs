@@ -12,12 +12,18 @@
       <h5><%= gift.giftName %></h5>
       <h6>Price: $<%= gift.giftPrice%></h6>
       <h6><a href="<%gift.giftLink%>"><%=gift.giftLink%></a></h6>
+      <% if(group.author.username == user) { %>
       <form
         action="/groups/<%=group._id%>/gifts/<%=gift._id%>?_method=DELETE"
         method="POST"
       >
         <button class="btn btn-sm btn-danger">Delete your gift</button>
       </form>
+      <% } %> <% if(user != group.author.username) { %>
+      <form action="/groups/<%=group._id%>" method="POST">
+        <button class="btn btn-sm btn-success">Select gift</button>
+      </form>
+      <% } %>
     </li>
     <% } %>
   </ul>
