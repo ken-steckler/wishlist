@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Group = require('../models/group');
+const Gift = require('../models/gift');
 const {isLoggedIn, isAuthor } = require('../middleware')
 
 // All groups
@@ -27,7 +28,10 @@ router.post('/', isLoggedIn, async (req, res, next) => {
 
 router.get('/:id', isLoggedIn, async (req, res) => {
     // .populate will render the gifts with corresponding group
-    const user = req.user.username
+    const user = req.user.username;
+    const userId = req.user.id;
+    const userGifts = req.user.gifts;
+    console.log("ello")
     const group = await Group.findById(req.params.id).populate({
         path: 'gifts',
         populate: {
@@ -38,7 +42,7 @@ router.get('/:id', isLoggedIn, async (req, res) => {
         req.flash('error', "Group not found!");
         return res.redirect('/groups');
     }
-    res.render('groups/details', { group, user });
+    res.render('groups/details', { group, user, userId, userGifts });
 }); 
 
 // Editing and Updating a group

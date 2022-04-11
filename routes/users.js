@@ -55,16 +55,6 @@ router.get("/logout", (req, res) => {
   res.redirect("/groups");
 });
 
-// Adds gift to associated account when user selects gift
-router.post("/groups/:id", isLoggedIn, async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(req.params.id);
-  const gift = await Gift.findById(req.params.id);
-  user.gifts.push(gift);
-  await gift.save();
-  await user.save();
-  req.flash("success", "Gift selected!");
-  res.redirect(`/groups/${group._id}`);
-});
+
 
 module.exports = router;
