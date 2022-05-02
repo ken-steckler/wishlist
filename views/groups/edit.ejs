@@ -1,20 +1,44 @@
 <% layout('layouts/boilerplate') %>
-<form action="/groups/<%=group._id%>?_method=PUT" method="POST" novalidate class="validated-form">
-    <div>
-        <label class="form-label" for="name">Group Name</label>
-        <input class="form-control" type="text" id="name" name="group[name]" value="<%= group.name %>" required>
+<form
+  action="/groups/<%=group._id%>?_method=PUT"
+  method="POST"
+  novalidate
+  class="validated-form"
+>
+  <div>
+    <label class="form-label" for="name">Group Name</label>
+    <input
+      class="form-control"
+      type="text"
+      id="name"
+      name="group[name]"
+      value="<%= group.name %>"
+      required
+    />
+  </div>
+  <div>
+    <label class="form-label" for="date">Special Date</label>
+    <input
+      class="form-control"
+      type="text"
+      id="date"
+      name="group[date]"
+      value="<%= group.date %>"
+      placeholer="MM/DD/YYYY"
+      minlength="8"
+      maxlength="10"
+      required
+    />
+    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+      Please enter in MM/DD/YYYY format
     </div>
-    <div>
-        <label class="form-label" for="date">Special Date</label>
-        <input class="form-control" type="text" id="date" name="group[date]" value="<%= group.date %>" required>
-    </div>
-    <br>
-    <button class="btn btn-primary">Update Group</button>
+  </div>
+  <br />
+  <button class="btn btn-primary">Update Group</button>
 </form>
 
+<a href="/groups" button class="btn btn-primary mt-3">All Groups</a>
 
-<a href="/groups">All Groups</a>
-<br>
-<a href="/groups/<%= group._id %>">Group Details</a>
-
-<!-- group[name]: group things under group, if you have multiple groups with square brackets and data is sent via post request to express, everything in req.body will be stored under group. Basically, this syntax groups content together -->
+<a href="/groups/<%= group._id %>" button class="btn btn-primary mt-3"
+  >Group Details</a
+>

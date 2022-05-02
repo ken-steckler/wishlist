@@ -7,53 +7,50 @@
 <div class="card w-100 mb-3">
   <div class="card-header">Wishlist</div>
   <ul class="list-group list-group-flush">
-    <% for (let gift of group.gifts) { %>
-      <% if (gift.giftAdded) { %> 
-        <li class="list-group-item">
-          <h5><%= gift.giftName %></h5>
-          <h6>Price: $<%= gift.giftPrice%></h6>
-          <h6><a href="<%gift.giftLink%>"><%=gift.giftLink%></a></h6>
-          <% if(group.author.username == user) { %>
-          <form
-            action="/groups/<%=group._id%>/gifts/<%=gift._id%>?_method=DELETE"
-            method="POST"
-          >
-            <button class="btn btn-sm btn-danger">Delete your gift</button>
-          </form>
-          <% } %> <% if(user != group.author.username) { %>
-          <form action="/groups/<%=group._id%>/gifts/add/<%=gift._id%>" method="POST">
-            <button class="btn btn-sm btn-success">Select gift</button>
-          </form>
-          <% } %>
-        </li>
-      <% } %> 
-    <% } %>
+    <% for (let gift of group.gifts) { %> <% if (gift.giftAdded) { %>
+    <li class="list-group-item">
+      <h5><%= gift.giftName %></h5>
+      <h6>Price: $<%= gift.giftPrice%></h6>
+      <h6><a href="<%=gift.giftLink%>"><%=gift.giftLink%></a></h6>
+      <% if(group.author.username == user) { %>
+      <form
+        action="/groups/<%=group._id%>/gifts/<%=gift._id%>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn btn-sm btn-danger">Delete your gift</button>
+      </form>
+      <% } %> <% if(user != group.author.username) { %>
+      <form
+        action="/groups/<%=group._id%>/gifts/add/<%=gift._id%>"
+        method="POST"
+      >
+        <button class="btn btn-sm btn-success">Select gift</button>
+      </form>
+      <% } %>
+    </li>
+    <% } %> <% } %>
   </ul>
 </div>
 
 <% if(group.author.username != user) { %>
-  <h4>Gift(s) Added to Your List:</h4>
-  <% console.log(group.gifts) %> 
-  <ul class="list-group list-group-flush">
-    <% for (let gift of group.gifts) { %>
-      <% if (!gift.giftAdded && gift.giftAddedTo == userId) { %> 
-        <li class="list-group-item">
-          <h5><%= gift.giftName %></h5>
-          <h6>Price: $<%= gift.giftPrice%></h6>
-          <h6><a href="<%gift.giftLink%>"><%=gift.giftLink%></a></h6>
-          <form
-            action="/groups/<%=group._id%>/gifts/remove/<%=gift._id%>?_method=DELETE"
-            method="POST"
-          >
-            <button class="btn btn-sm btn-danger">Remove Gift</button>
-          </form>
-        </li>
-      <% } %> 
-    <% } %>
-  </ul>
-<% } %> 
-
-<% if(group.author.username == user) { %>
+<h4>Gift(s) Added to Your List:</h4>
+<ul class="list-group list-group-flush">
+  <% for (let gift of group.gifts) { %> <% if (!gift.giftAdded &&
+  gift.giftAddedTo == userId) { %>
+  <li class="list-group-item">
+    <h5><%= gift.giftName %></h5>
+    <h6>Price: $<%= gift.giftPrice%></h6>
+    <h6><a href="<%=gift.giftLink%>">Link</a></h6>
+    <form
+      action="/groups/<%=group._id%>/gifts/remove/<%=gift._id%>?_method=DELETE"
+      method="POST"
+    >
+      <button class="btn btn-sm btn-danger">Remove Gift</button>
+    </form>
+  </li>
+  <% } %> <% } %>
+</ul>
+<% } %> <% if(group.author.username == user) { %>
 <form
   action="/groups/<%=group._id%>/gifts"
   method="POST"
@@ -117,5 +114,5 @@
 </div>
 <% } %>
 <footer>
-  <a href="/groups" class="btn btn-primary mt-3">All groups</a>
+  <a href="/groups" class="btn btn-primary mt-3 mb-4">All groups</a>
 </footer>

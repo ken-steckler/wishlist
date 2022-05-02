@@ -1,7 +1,8 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-const PORT = 3001;
+
+const PORT = 3002;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -18,10 +19,11 @@ const User = require("./models/user");
 const userRoutes = require("./routes/users");
 const groups = require("./routes/groups");
 const gifts = require("./routes/gifts");
+const MongoStore = require("connect-mongo");
 
-const mongodb_url = process.env.MONGODB_URL;
+const dbURL = "mongodb://localhost:27017/localGift";
 // "mongodb://localhost:27017/localGift"
-mongoose.connect(mongodb_url, {
+mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -41,7 +43,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
+const store = MongoStore.create({
+  mongoUrl: dbURL,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: "squirrel",
+  },
+});
+
+store.on("error", function (e) {
+  console.log("Session store error!");
+});
+
 const sessionOp = {
+  store,
   secret: "secret",
   resave: false,
   saveUninitialized: true,

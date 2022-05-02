@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
-<div class="card w-50 m-auto mt-4">
+<div class="card w-60 m-auto mt-4">
       <h3 class="m-auto mt-4 mb-1">Happy Birthday! 🎉🥳</h3>
-      <p class="m-auto">Here you can add the name of your group and that special day</p>
+      <p class="m-auto">Add a new group here: </p>
     <div class="card-body">
         <form action="/groups" method="POST" novalidate class="validated-form mt-3">
             <div class="mb-3 w-50 m-auto">
@@ -10,7 +10,10 @@
             </div>
             <div class="mb-4 w-50 m-auto">
                 <label class="form-label" for="date">Special Day</label>
-                <input class="form-control" type="text" id="date" name="group[date]" required>
+                <input class="form-control" type="text" id="date" name="group[date]" placeholder="MM/DD/YYY" minlength="8" maxlength="10" required>
+                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  Please enter follow that format MM/DD/YYYY
+                </div>
             </div>
             <div class="mb-4 w-50 m-auto">
               <button class="btn btn-primary">Add Group</button>

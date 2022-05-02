@@ -55,6 +55,4 @@ router.get("/logout", (req, res) => {
   res.redirect("/groups");
 });
 
-
-
 module.exports = router;

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Gift = require('./gift');
+const Gift = require("./gift");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const UserSchema = new Schema({
@@ -15,6 +15,16 @@ const UserSchema = new Schema({
       ref: "Gift",
     },
   ],
+});
+
+UserSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await Gift.deleteMany({
+      _id: {
+        $in: doc.gifts,
+      },
+    });
+  }
 });
 
 UserSchema.plugin(passportLocalMongoose);

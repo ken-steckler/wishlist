@@ -1,7 +1,7 @@
 const express = require("express");
-const router = express.Router({ mergeParams: true }); // mergeparams to merge params from app.js into this file so that req.params.id is not null
+const router = express.Router({ mergeParams: true });
 const Group = require("../models/group");
-const User = require("../models/user")
+const User = require("../models/user");
 const Gift = require("../models/gift");
 const { isLoggedIn, isAuthor } = require("../middleware");
 
@@ -11,12 +11,19 @@ router.post("/", isLoggedIn, isAuthor, async (req, res) => {
   const gift = new Gift(req.body.gift);
   gift.author = req.user._id;
   gift.giftAdded = true;
-  console.log(gift.giftAdded);
   group.gifts.push(gift);
-  console.log(group.gifts)
   await gift.save();
   await group.save();
   req.flash("success", "New gift added to wishlist!");
+  res.redirect(`/groups/${group._id}`);
+});
+
+router.post("/invite/:userID", isLoggedIn, isAuthor, async (req, res) => {
+  const group = await Group.findById(req.params.id);
+  const user = await User.findById(req.params.id);
+  group.users.push(user);
+  await group.save();
+  req.flash("success", "New user added to group!");
   res.redirect(`/groups/${group._id}`);
 });
 
@@ -29,11 +36,10 @@ router.delete("/:giftId", isLoggedIn, isAuthor, async (req, res) => {
   res.redirect(`/groups/${id}`);
 });
 
-
 // Adds gift to associated account when user selects gift
 // For every item in the gift, check if item is already added. If so, then return error.
 router.post("/add/:giftId", isLoggedIn, async (req, res) => {
-  const {id, giftId} = req.params;
+  const { id, giftId } = req.params;
   const group = await Group.findById(req.params.id);
   const user = await User.findById(req.user.id);
   const gift = await Gift.findById(req.params.giftId);
@@ -52,6 +58,21 @@ router.post("/add/:giftId", isLoggedIn, async (req, res) => {
   await gift.save();
   await user.save();
   req.flash("success", "Gift selected!");
+  res.redirect(`/groups/${group._id}`);
+});
+
+// Removes gift from the user's list and adds back to groups list
+router.delete("/remove/:giftId", isLoggedIn, async (req, res) => {
+  const { id, giftId } = req.params;
+  const group = await Group.findById(req.params.id);
+  const user = await User.findById(req.user.id);
+  const gift = await Gift.findById(req.params.giftId);
+  gift.giftAdded = true;
+  await gift.save();
+  await group.save();
+  await User.findByIdAndUpdate(id, { $pull: { gifts: giftId } });
+  await User.findByIdAndDelete(req.params.giftId);
+  req.flash("success", "Gift removed!");
   res.redirect(`/groups/${group._id}`);
 });
 
