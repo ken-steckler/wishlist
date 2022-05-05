@@ -1,8 +1,15 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const Group = require("../models/group");
+const User = require("../models/user");
 const Gift = require("../models/gift");
 const { isLoggedIn, isAuthor } = require("../middleware");
+
+router.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 // All groups
 router.get("/", async (req, res) => {
@@ -40,12 +47,46 @@ router.get("/:id", isLoggedIn, async (req, res) => {
         path: "author",
       },
     })
-    .populate("author");
+    .populate("author")
+    // Populating users field in Schema to add an invited user
+    .populate({
+      path: "users",
+      populate: {
+        path: "users",
+      },
+    })
+    .populate("users");
   if (!group) {
     req.flash("error", "Group not found!");
     return res.redirect("/groups");
   }
   res.render("groups/details", { group, user, userId, userGifts });
+});
+
+// This post method will add a new user to corresponding group
+router.post("/:id/invite", isLoggedIn, isAuthor, async (req, res) => {
+  const { id } = req.params;
+  const inviteUser = req.body.inviteUser;
+  const invitedUser = await User.findOne({ username: inviteUser });
+  const group = await Group.findById(id);
+  if (invitedUser == null) {
+    req.flash("error", "User not found, please try inviting again!");
+    res.redirect(`/groups/${group._id}`);
+  }
+  // Checks to see if a user already invited in the group
+  invitedObjectID = invitedUser._id.valueOf();
+  for (i in group.users) {
+    if (group.users[i].valueOf() == invitedObjectID) {
+      req.flash("error", "User already invited, please invite another user!");
+      res.redirect(`/groups/${group._id}`);
+    }
+  }
+  group.users.push(invitedUser);
+  invitedUser.groupsInvited.push(group);
+  await group.save();
+  await invitedUser.save();
+  req.flash("success", "A new user has been added to the group!");
+  res.redirect(`/groups/${group._id}`);
 });
 
 // Editing and Updating a group

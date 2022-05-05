@@ -3,7 +3,33 @@
   <h1><%= group.name %></h1>
   <h3>Special Date: <%= group.date %></h3>
   <li class="list-group-item">Submitted by: <%= group.author.username %></li>
+  <!-- An index is used here to access the array of the object-->
+  <li class="list-group-item">
+    Invited: <% for (let i in group.users) { %> <%= group.users[i].username %>
+    <% } %>
+  </li>
 </div>
+<% if (user = group.author.username) { %>
+<form
+  action="/groups/<%=group._id%>/invite"
+  method="POST"
+  novalidate
+  class="validated-form mb-3"
+>
+  <div class="mb-3">
+    <label class="form-label" for="inviteUser">Invite User:</label>
+    <input
+      class="form-control"
+      type="text"
+      id="inviteUser"
+      name="inviteUser"
+      required
+    />
+  </div>
+  <button class="btn btn-primary">Send Invite</button>
+</form>
+
+<% } %>
 <div class="card w-100 mb-3">
   <div class="card-header">Wishlist</div>
   <ul class="list-group list-group-flush">

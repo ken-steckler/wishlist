@@ -15,6 +15,17 @@ const UserSchema = new Schema({
       ref: "Gift",
     },
   ],
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  groupsInvited: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Group",
+    },
+  ],
 });
 
 UserSchema.post("findOneAndDelete", async function (doc) {

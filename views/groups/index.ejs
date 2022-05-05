@@ -1,7 +1,9 @@
 <% layout('layouts/boilerplate') %>
 <h1>All Wishlists</h1>
 <ul>
-  <% for (let group of groups) { %>
+  <% for (let group of groups) { %> <% if (group.users.toString() != 0 &&
+  (group.users.toString() == user._id) || (group.author.toString() == user._id))
+  { %>
   <div class="card mb-3 w-100" style="width: 18rem">
     <div class="card-body">
       <h5 class="card-title"><%= group.name %></h5>
@@ -15,5 +17,13 @@
       <% } %>
     </div>
   </div>
+  <% } %> <% } %>
+</ul>
+<ul>
+  <% let count = 0 %> <% for (let group of groups) { %> <% count = count + 1 %>
+  <% } %> <% if (count == 0) { %>
+  <h3>
+    Please create a new group or ask another user to invite you to get started!
+  </h3>
   <% } %>
 </ul>

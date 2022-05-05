@@ -18,15 +18,6 @@ router.post("/", isLoggedIn, isAuthor, async (req, res) => {
   res.redirect(`/groups/${group._id}`);
 });
 
-router.post("/invite/:userID", isLoggedIn, isAuthor, async (req, res) => {
-  const group = await Group.findById(req.params.id);
-  const user = await User.findById(req.params.id);
-  group.users.push(user);
-  await group.save();
-  req.flash("success", "New user added to group!");
-  res.redirect(`/groups/${group._id}`);
-});
-
 // This delete method allows users to delete their gifts from their wishlist
 router.delete("/:giftId", isLoggedIn, isAuthor, async (req, res) => {
   const { id, giftId } = req.params;

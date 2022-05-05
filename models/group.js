@@ -9,6 +9,12 @@ const GroupSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  users: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   gifts: [
     {
       type: Schema.Types.ObjectId,
