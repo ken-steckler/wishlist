@@ -87,7 +87,7 @@ app.use((req, res) => {
   res.status(404).send("Page Not Found!");
 });
 
-const PORT = process.env.PORT || 3002;
-app.listen(PORT, () => {
-  console.log(`Serving on PORT ${PORT}`);
+const port = process.env.PORT || 3002;
+app.listen(port, () => {
+  console.log(`Serving on PORT ${port}`);
 });
