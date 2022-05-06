@@ -9,8 +9,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
-const Gift = require("./models/gift");
-const Group = require("./models/group");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -21,8 +19,7 @@ const groups = require("./routes/groups");
 const gifts = require("./routes/gifts");
 const MongoStore = require("connect-mongo");
 
-const dbURL = "mongodb://localhost:27017/localGift";
-// "mongodb://localhost:27017/localGift"
+const dbURL = process.env.DB_URL || "mongodb://localhost:27017/localGift";
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -43,21 +40,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
+const secret = process.env.SECRET || "wishwish";
 const store = MongoStore.create({
   mongoUrl: dbURL,
   touchAfter: 24 * 60 * 60,
   crypto: {
-    secret: "squirrel",
+    secret,
   },
 });
 
 store.on("error", function (e) {
-  console.log("Session store error!");
+  console.log("Session store error!", e);
 });
 
 const sessionOp = {
   store,
-  secret: "secret",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
