@@ -18,7 +18,8 @@ const groups = require("./routes/groups");
 const gifts = require("./routes/gifts");
 const MongoStore = require("connect-mongo");
 
-const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/localGift";
+// || "mongodb://127.0.0.1:27017/localGift"
+const dbURL = process.env.DB_URL;
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
