@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const PORT = 3002;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -88,6 +87,7 @@ app.use((req, res) => {
   res.status(404).send("Page Not Found!");
 });
 
+const PORT = proces.env. || 3002;
 app.listen(PORT, () => {
   console.log(`Serving on PORT ${PORT}`);
 });
