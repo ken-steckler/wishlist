@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-//requires
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -18,7 +14,11 @@ const groups = require("./routes/groups");
 const gifts = require("./routes/gifts");
 const MongoStore = require("connect-mongo");
 
-const dbURL = process.env.DB_URL || "mongodb://127.0.0.1:27017/localGift";
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
+const dbURL = process.env.DB_URL;
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -88,7 +88,7 @@ app.use((req, res) => {
   res.status(404).send("Page Not Found!!!");
 });
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Serving on PORT ${port}`);
 });
