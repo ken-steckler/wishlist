@@ -84,7 +84,8 @@ app.use("/groups", groups);
 app.use("/groups/:id/gifts", gifts);
 
 app.use((req, res) => {
-  res.status(404).send("Page Not Found!");
+  res.redirect("/groups");
+  res.status(404).send("Page Not Found!!!");
 });
 
 const port = process.env.PORT || 3002;

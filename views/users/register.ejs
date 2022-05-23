@@ -1,9 +1,10 @@
 <% layout('layouts/boilerplate') %>
+
 <div class="card m-auto my-auto">
   <h3 class="mt-4 m-auto mb-3">Sign up to Giftu</h3>
   <div class="m-auto mb-2">Already a member? <a href="/login">Log in</a></div>
   <div class="card-body">
-    <form action="" method="POST" class="validated-form" novalidate>
+    <form action="/register" method="POST" class="validated-form" novalidate>
       <div class="mb-3 w-50 m-auto">
         <label class="form-label" for="username">Username</label>
         <input
