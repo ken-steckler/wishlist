@@ -11,7 +11,7 @@
   <li>JavaScript/EJS</li>
   <li>HTML</li>
   <li>Bootstrap</li>
-  <li>Exprss</li>
+  <li>Express</li>
   <li>Mongo DB</li>
   <li>Mongoose</li>
  </li>
