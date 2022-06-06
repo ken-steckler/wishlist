@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -13,10 +17,6 @@ const userRoutes = require("./routes/users");
 const groups = require("./routes/groups");
 const gifts = require("./routes/gifts");
 const MongoStore = require("connect-mongo");
-
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 
 const dbURL = process.env.DB_URL;
 mongoose.connect(dbURL, {
@@ -84,7 +84,7 @@ app.use("/groups", groups);
 app.use("/groups/:id/gifts", gifts);
 
 app.get('/', (req, res) => {
-    res.render('home')
+  res.render('home')
 });
 
 app.use((req, res) => {
