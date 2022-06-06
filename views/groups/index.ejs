@@ -1,11 +1,32 @@
 <% layout('layouts/boilerplate') %>
 <h1>All Wishlists</h1>
 <ul>
+  
+  <h2>Your created groups: </h2>
+  <% for (let group of groups) { %> 
+    <% if ((group.author.toString() == user._id.toString())) { %>
+        <div class="card mb-3 w-100" style="width: 18rem">
+          <div class="card-body">
+            <h5 class="card-title"><%= group.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              Special Day: <%= group.date %>
+            </h6>
+            <a href="/groups/<%= group._id%>" class="card-link">See Details</a>
+            <!-- Changing from object type to string type to compare equality -->
+            <a href="/groups/<%= group._id%>/edit" class="card-link">Update Group</a>
+          </div>
+        </div>
+      <% } %>
+    <% } %>
+
+    <h2>Your invited groups: </h2>
   <% for (let group of groups) { %> 
     <% for (let index of Object.keys(group.users)) { %>
-      <% if (group.users.toString() != 0 &&
-      (group.users[index].toString() == user._id.toString()) || (group.author.toString() == user._id))
+      <% if ((group.users[index].toString() == user._id.toString()))
       { %>
+        <% console.log(group.author.toString()) %>
+        <% console.log(user._id.toString())%>
+        <% console.log(group.author.toString() == user._id.toString())%>
           <div class="card mb-3 w-100" style="width: 18rem">
             <div class="card-body">
               <h5 class="card-title"><%= group.name %></h5>
