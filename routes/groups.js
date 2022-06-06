@@ -14,7 +14,7 @@ router.use(
 // All groups
 router.get("/", async (req, res) => {
   if (!req.user) {
-    res.render("groups/home");
+    res.render("home");
   }
   const groups = await Group.find({});
   res.render("groups/index", { groups, user: req.user });
@@ -69,24 +69,28 @@ router.post("/:id/invite", isLoggedIn, isAuthor, async (req, res) => {
   const inviteUser = req.body.inviteUser;
   const invitedUser = await User.findOne({ username: inviteUser });
   const group = await Group.findById(id);
+  // Checking to see if user exists
   if (invitedUser == null) {
     req.flash("error", "User not found, please try inviting again!");
     res.redirect(`/groups/${group._id}`);
   }
-  // Checks to see if a user already invited in the group
+  // Checks to see if a user is already invited to the group
+  if (invitedUser) {
   invitedObjectID = invitedUser._id.valueOf();
-  for (i in group.users) {
+  for (let i in group.users) {
     if (group.users[i].valueOf() == invitedObjectID) {
       req.flash("error", "User already invited, please invite another user!");
       res.redirect(`/groups/${group._id}`);
+      }
     }
+    // If a user is found and not already included, then add to the group
+    group.users.push(invitedUser);
+    invitedUser.groupsInvited.push(group);
+    await group.save();
+    await invitedUser.save();
+    req.flash("success", "A new user has been added to the group!");
+    res.redirect(`/groups/${group._id}`);
   }
-  group.users.push(invitedUser);
-  invitedUser.groupsInvited.push(group);
-  await group.save();
-  await invitedUser.save();
-  req.flash("success", "A new user has been added to the group!");
-  res.redirect(`/groups/${group._id}`);
 });
 
 // Editing and Updating a group

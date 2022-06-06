@@ -83,9 +83,13 @@ app.use("/", userRoutes);
 app.use("/groups", groups);
 app.use("/groups/:id/gifts", gifts);
 
+app.get('/', (req, res) => {
+    res.render('home')
+});
+
 app.use((req, res) => {
   res.redirect("/groups");
-  res.status(404).send("Page Not Found!!!");
+  res.status(404).send("Page Not Found!!! Please hit the back button");
 });
 
 const port = process.env.PORT || 3000;

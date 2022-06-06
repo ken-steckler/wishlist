@@ -1,23 +1,24 @@
 <% layout('layouts/boilerplate') %>
 <h1>All Wishlists</h1>
 <ul>
-  <% for (let group of groups) { %> <% if (group.users.toString() != 0 &&
-  (group.users.toString() == user._id) || (group.author.toString() == user._id))
-  { %>
-  <div class="card mb-3 w-100" style="width: 18rem">
-    <div class="card-body">
-      <h5 class="card-title"><%= group.name %></h5>
-      <h6 class="card-subtitle mb-2 text-muted">
-        Special Day: <%- group.date %>
-      </h6>
-      <a href="/groups/<%= group._id%>" class="card-link">See Details</a>
-      <!-- Changing from object type to string type to compare equality -->
-      <% if (user._id.toString() == group.author.toString()) { %>
-      <a href="/groups/<%= group._id%>/edit" class="card-link">Update Group</a>
-      <% } %>
+  <% for (let group of groups) { %> 
+    <% if (group.users.toString() != 0 && (group.users.toString() == user._id) || (group.author.toString() == user._id))
+    { %>
+    <div class="card mb-3 w-100" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title"><%= group.name %></h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Special Day: <% group.date %>
+        </h6>
+        <a href="/groups/<%= group._id%>" class="card-link">See Details</a>
+        <!-- Changing from object type to string type to compare equality -->
+        <% if (user._id.toString() == group.author.toString()) { %>
+        <a href="/groups/<%= group._id%>/edit" class="card-link">Update Group</a>
+        <% } %>
+      </div>
     </div>
-  </div>
-  <% } %> <% } %>
+    <% } %> 
+  <% } %>
 </ul>
 <ul>
   <% let count = 0 %> <% for (let group of groups) { %> <% count = count + 1 %>

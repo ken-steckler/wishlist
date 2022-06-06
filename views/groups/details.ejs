@@ -9,7 +9,7 @@
     <% } %>
   </li>
 </div>
-<% if (user = group.author.username) { %>
+<% if (user == group.author.username) { %>
 <form
   action="/groups/<%=group._id%>/invite"
   method="POST"
