@@ -1,4 +1,4 @@
-Giftu - README - WORK IN PROGRESS
+Giftu - README - WORK IN PROGRESS 🔨
 ===
 
 ## Table of Contents
