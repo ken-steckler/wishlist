@@ -10,11 +10,12 @@ Giftu - README - WORK IN PROGRESS 🔨
 
 ## Overview
 ### Description
+Giftu is a one-of-a-kind gift exchange app that makes gift buying easier by allowing users to coordinate purchases and prevent duplicate gift buying without having to jump through hoops to sign up.
 
 ### App Evaluation
 - **category** Lifestyle
 - **Web:**
-- **Story:**
+- **Story:** 
 - **Market:**
 - **Scope:**
 
