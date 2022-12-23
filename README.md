@@ -1,4 +1,4 @@
-Giftu - README
+Giftu - README 🎁
 ===
 
 ## Table of Contents
