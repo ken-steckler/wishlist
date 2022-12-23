@@ -1,4 +1,4 @@
-Giftu - README - WORK IN PROGRESS 🔨
+Giftu - README
 Link: https://giftu-app.herokuapp.com/
 ===
 
@@ -25,9 +25,9 @@ Signing Up
 Adding a Group:
 <img src="http://g.recordit.co/Jr8fXuSe3n.gif" width="300" />
 Adding/Deleting a Gift:
-<img src="https://recordit.co/QvZJYPIMwj" width="300" />
+<img src="https://g.recordit.co/QvZJYPIMwj.gif" width="300" />
 Sending an Invite
-<img src="http://recordit.co/6RoYTTcnNP" width="300" />
+<img src="http://g.recordit.co/6RoYTTcnNP.gif" width="300" />
 
 ## Product Spec
 The project uses EJS (Embedded JavaScript) as a template engine to render HTML and Express for middleware. It has routes for handling user authentication, as well as routes for creating and managing wish lists. Users can create an account and log in to the application, and once logged in, can create a wish list by assing items and specifying details such as the item name, description and price. Users can also view and edit their wish lists, as well as view the wish lists of other users who have made them public (by invite). 
@@ -40,9 +40,9 @@ The project uses a very simple design scheme with Bootstrap
 ## What's Next?
 Here are some future updates I plan on accomplishing:
 <ul>
-<li> ##Use a framework like React or Next##: The project was made with EJS, which allowed me to embed JavaScript code directly into HTML code. Though useful for keeping track of routes, I would like to separate these out in different files and directories to keep it more organized. Additionally, it would be nice to user reusabale components and state like in React apps. This may be the most significant update since it will require me to migrate to a completely different framework.
-<li> ##Use a different CSS framework##: I used Bootstrap because of its simple interface but would love to use TailwindCSS to improve on the design and appearance of the project. TailwindCSS is a utility-first CSS framework that also has a set of predefined classes for styling elements but with more flexibility in the design.
-<li> ##Use a different database##: Instead of MongoDB I can use another document based database like, Firestore, but that would require complete refactoring of the models. Both are scalable and are great at indexing/querying so this change may not be necessary. Another update could be to use a SQL database instead, Postgres or Firebase. However, this may also require significant changes to the data model of the project and will be a significant change that may not be necessary for this project.
+<li> Use a framework like React or Next: The project was made with EJS, which allowed me to embed JavaScript code directly into HTML code. Though useful for keeping track of routes, I would like to separate these out in different files and directories to keep it more organized. Additionally, it would be nice to user reusabale components and state like in React apps. This may be the most significant update since it will require me to migrate to a completely different framework.
+<li> Use a different CSS framework: I used Bootstrap because of its simple interface but would love to use TailwindCSS to improve on the design and appearance of the project. TailwindCSS is a utility-first CSS framework that also has a set of predefined classes for styling elements but with more flexibility in the design.
+<li> Use a different database: Instead of MongoDB I can use another document based database like, Firestore, but that would require complete refactoring of the models. Both are scalable and are great at indexing/querying so this change may not be necessary. Another update could be to use a SQL database instead, Postgres or Firebase. However, this may also require significant changes to the data model of the project and will be a significant change that may not be necessary for this project.
 </ul>
 
 Thanks for visiting!
