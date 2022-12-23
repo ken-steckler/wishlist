@@ -21,13 +21,13 @@ Giftu is a full stack web application that allows users to create and share list
 
 ## Demo
 Signing Up
-<img src="http://g.recordit.co/r6WSrjvzEy.gif" width="300"/>
+<img src="http://g.recordit.co/r6WSrjvzEy.gif" width="300"/><br />
 Adding a Group:
-<img src="http://g.recordit.co/Jr8fXuSe3n.gif" width="300" />
+<img src="http://g.recordit.co/Jr8fXuSe3n.gif" width="300" /> <br />
 Adding/Deleting a Gift:
-<img src="https://g.recordit.co/QvZJYPIMwj.gif" width="300" />
+<img src="http://g.recordit.co/QvZJYPIMwj.gif" width="300" /> <br />
 Sending an Invite
-<img src="http://g.recordit.co/6RoYTTcnNP.gif" width="300" />
+<img src="http://g.recordit.co/6RoYTTcnNP.gif" width="300" /> <br />
 
 ## Product Spec
 The project uses EJS (Embedded JavaScript) as a template engine to render HTML and Express for middleware. It has routes for handling user authentication, as well as routes for creating and managing wish lists. Users can create an account and log in to the application, and once logged in, can create a wish list by assing items and specifying details such as the item name, description and price. Users can also view and edit their wish lists, as well as view the wish lists of other users who have made them public (by invite). 
