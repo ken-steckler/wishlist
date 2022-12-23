@@ -20,13 +20,13 @@ Giftu is a full stack web application that allows users to create and share list
 - **Scope:** Users will be able to login/logout with their unique username and password. Currently, there is no fuctionality for retrieving forgotten passwords. The collection includes users and gifts, which are tied to the users. 
 
 ## Demo
-Signing Up
+Signing Up:<br />
 <img src="http://g.recordit.co/r6WSrjvzEy.gif" width="300"/><br />
-Adding a Group:
+Adding a Group:<br />
 <img src="http://g.recordit.co/Jr8fXuSe3n.gif" width="300" /> <br />
-Adding/Deleting a Gift:
+Adding/Deleting a Gift:<br />
 <img src="http://g.recordit.co/QvZJYPIMwj.gif" width="300" /> <br />
-Sending an Invite
+Sending an Invite<br />
 <img src="http://g.recordit.co/6RoYTTcnNP.gif" width="300" /> <br />
 
 ## Product Spec
