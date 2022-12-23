@@ -1,5 +1,4 @@
 Giftu - README
-Link: https://giftu-app.herokuapp.com/
 ===
 
 ## Table of Contents
@@ -8,6 +7,9 @@ Link: https://giftu-app.herokuapp.com/
 1. [Product Spec](#Product-Spec)
 1. [Design](#Design)
 1. [What's Next?](#What's-Next?)
+
+## Link
+Link: https://giftu-app.herokuapp.com/
 
 ## Overview
 ### Description
