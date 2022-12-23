@@ -16,7 +16,7 @@ Link: https://giftu-app.herokuapp.com/
 Giftu is a full stack web application that allows users to create and share lists for gift exchanges. It allows users to invite other users to interact with their wishlist and it also allows the creator of the wish list to not see any of the items that have been purchased to keep it a surprise for that user. The project uses EJS (Embedded JavaScript) as a template engine for generating HTML and Express as a framework for building server-side functionality. It also utilizes MongoDB as a database to store a collection of users and clients and Passport.js to authenticate users.
 
 ### App Evaluation
-- **category** Lifestyle
+- **Category** Lifestyle
 - **Story:** Back in Christmas of last year, my family ran into a problem - we all got my uncle the same gift from the same store. No one wants see someone opening another person's gift and realizing that you had bought them the same gift. That's why I created, Giftu. This application allows users to pick an item from a wishlist and removes that item once picked so another user can't purchase it. To add an element of surprise, the web app also keeps it so that the recipient cannot see which gifts have been purchased.
 - **Market:** This application is for anyone who wants a way to organize their wishlist without the ability to see which gifts have been purchased ahead of time. 
 - **Scope:** Users will be able to login/logout with their unique username and password. Currently, there is no fuctionality for retrieving forgotten passwords. The collection includes users and gifts, which are tied to the users. 
